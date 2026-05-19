@@ -59,21 +59,35 @@ class MaterialController extends Controller
             'values' => 'nullable|string|max:500',
             'description' => 'nullable|string',
             'questions' => 'nullable|array',
+            'questions.*.id' => 'nullable|exists:material_questions,id',
             'questions.*.category' => 'required|in:W,D,E,P',
             'questions.*.text' => 'required|string',
         ]);
 
         $material->update($request->only('title', 'values', 'description'));
 
-        // Recreate questions
-        $material->questions()->delete();
+        // Identify kept question IDs to delete others
+        $submittedQuestionIds = collect($request->questions)->pluck('id')->filter()->all();
+        
+        // Delete questions that were removed in the UI
+        $material->questions()->whereNotIn('id', $submittedQuestionIds)->delete();
+
+        // Create or update submitted questions
         if ($request->has('questions')) {
             foreach ($request->questions as $index => $q) {
-                $material->questions()->create([
-                    'category' => $q['category'],
-                    'text' => $q['text'],
-                    'order' => $index,
-                ]);
+                if (!empty($q['id'])) {
+                    $material->questions()->where('id', $q['id'])->update([
+                        'category' => $q['category'],
+                        'text' => $q['text'],
+                        'order' => $index,
+                    ]);
+                } else {
+                    $material->questions()->create([
+                        'category' => $q['category'],
+                        'text' => $q['text'],
+                        'order' => $index,
+                    ]);
+                }
             }
         }
 

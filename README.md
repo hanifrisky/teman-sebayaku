@@ -1,58 +1,186 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/image/logo-mark.png" width="120" height="120" alt="Teman Sebayaku Logo" style="border-radius: 24px; box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3);">
 </p>
 
-## About Laravel
+<h1 align="center">Teman Sebayaku</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">
+  <strong>Model Peer Counseling Berbantuan Digital Self-Help Bermuatan Nilai Kearifan Lokal untuk Meningkatkan Well-Being Remaja</strong>
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p align="center">
+  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=black" alt="Alpine.js">
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 📌 Tentang Teman Sebayaku
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Teman Sebayaku** adalah platform kesehatan mental digital berbasis website yang didesain khusus sebagai media pendukung dalam pelaksanaan **Model Peer Counseling Berbantuan Digital Self-Help Bermuatan Nilai Kearifan Lokal**. Platform ini bertujuan untuk mendeteksi dini kesehatan mental dan membantu meningkatkan kondisi *well-being* (kesejahteraan psikologis) pada siswa tingkat SLTA/remaja melalui pendekatan terstruktur berbasis budaya.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Platform ini didukung oleh **LPPD-KEMENDIKTI SAINTEK** bekerjasama dengan tim kolaborasi lintas universitas dari:
+* **Universitas Negeri Malang (UM)**
+* **Universitas Negeri Yogyakarta (UNY)**
+* **Universitas Negeri Padang (UNP)**
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## 🚀 Fitur Utama
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 📊 1. Instrumen Well-Being Interaktif (Pre-Test & Post-Test)
+* Pengisian kuesioner kesejahteraan psikologis yang responsif dengan penyimpanan jawaban otomatis (*auto-save*).
+* Penyederhanaan pilihan jawaban tanpa menampilkan bias angka nilai skor langsung saat pengisian.
+* Kalkulasi skor otomatis berbasis kriteria interpretasi nilai dari admin.
+* Ekspor laporan hasil analisis kesejahteraan psikologis dalam format **PDF** yang rapi.
 
-```bash
-composer require laravel/boost --dev
+### 📚 2. Modul Budaya Digital Self-Help
+* Pengelompokan materi bimbingan berdasarkan suku atau nilai kearifan lokal (misalnya budaya Jawa, Minang, dll).
+* Memudahkan siswa menyerap nilai resiliensi dan kepribadian cerdas emosi melalui kearifan budaya yang dekat dengan keseharian mereka.
 
-php artisan boost:install
+### ✍️ 3. Jurnal Refleksi Mandiri Berbasis WDEP
+* Lembar kerja terstruktur yang didesain berdasarkan tahapan konseling realitas **WDEP (Want, Do/Doing, Evaluation, Planning)**:
+  * **Want (W)**: Mengeksplorasi keinginan dan kebutuhan remaja.
+  * **Do/Doing (D)**: Mengidentifikasi tindakan atau perilaku saat ini.
+  * **Evaluation (E)**: Mengevaluasi kefektifan tindakan tersebut.
+  * **Planning (P)**: Merumuskan rencana tindakan nyata yang bertanggung jawab.
+* Sistem penyimpanan otomatis di setiap tahapan refleksi.
+
+### 🤝 4. Alur Kolaborasi Konseling Sebaya (Peer Counseling)
+* Konseli dapat memilih konselor sebaya (*peer counselor*) yang terdaftar di dalam sistem.
+* Konselor sebaya dapat melacak progres pengerjaan instrumen dan modul *self-help* konseli, serta memberikan *feedback* bimbingan kognitif secara terarah.
+* Sistem eskalasi rujukan ke Konselor Sekolah profesional jika dibutuhkan tindak lanjut sesi klinis.
+
+### 👑 5. Panel Administrasi Komprehensif
+* Manajemen data user (Admin, Konselor, Konseli).
+* Pengaturan bank soal kuesioner instrumen *well-being*.
+* Manajemen interpretasi rentang skor indeks kesejahteraan psikologis.
+* Manajemen materi suku kearifan lokal dan modul bimbingan *self-help*.
+
+---
+
+## 🛠️ Arsitektur & Teknologi
+
+* **Backend Framework**: Laravel 11.x (PHP 8.2+)
+* **Database**: MySQL / MariaDB
+* **Frontend Stack**: 
+  * Blade Templating Engine
+  * Tailwind CSS (melalui Vite Compiler)
+  * Alpine.js (untuk reaktivitas frontend interaktif & auto-save)
+* **Build System**: Vite 8.x
+* **Export Engine**: Dompdf (untuk ekspor PDF laporan wellbeing)
+
+---
+
+## 📂 Struktur Direktori Utama
+
+```
+teman-sebayaku/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/     # Logic Controller (Auth, Admin, Konselor, Konseli)
+│   └── Models/              # Representasi Database Eloquent ORM
+├── database/
+│   ├── migrations/          # Schema Migrations
+│   └── seeders/             # Seeders data awal (soal instrumen, dll)
+├── public/
+│   ├── build/               # Aset Vite yang telah terkompilasi
+│   └── image/               # Aset gambar, logo-mark, dan foto tim
+├── resources/
+│   ├── css/                 # Aset CSS & Integrasi Tailwind
+│   ├── js/                  # JavaScript & Inisialisasi Alpine.js
+│   └── views/               # Template Blade (layout dasar & dashboard per-role)
+│       ├── admin/           # Tampilan Panel Administrator
+│       ├── konseli/         # Tampilan Panel Siswa/Konseli
+│       ├── konselor/        # Tampilan Panel Konselor Sebaya
+│       └── layouts/         # Layout dasar platform (Base, Guest, Sidebar)
+└── routes/
+    └── web.php              # Definisi Routing sistem
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## 🔧 Panduan Instalasi Lokal
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Ikuti langkah-langkah di bawah untuk menjalankan proyek **Teman Sebayaku** di mesin lokal Anda:
 
-## Code of Conduct
+### 1. Prasyarat
+Pastikan Anda sudah menginstal:
+* PHP >= 8.2
+* Composer
+* Node.js & NPM
+* MySQL / MariaDB
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Kloning Repositori
+```bash
+git clone https://github.com/username/teman-sebayaku.git
+cd teman-sebayaku
+```
 
-## Security Vulnerabilities
+### 3. Instalasi Dependensi PHP & JavaScript
+```bash
+composer install
+npm install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Konfigurasi Lingkungan (.env)
+Salin file `.env.example` menjadi `.env`:
+```bash
+cp .env.example .env
+```
+Buka file `.env` dan sesuaikan konfigurasi database Anda:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=teman_sebayaku
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## License
+### 5. Generate Application Key & Link Storage
+```bash
+php artisan key:generate
+php artisan storage:link
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 6. Jalankan Migrasi dan Database Seeder
+Langkah ini akan membuat tabel database dan mengisinya dengan data awal (termasuk kuesioner, admin default, dll):
+```bash
+php artisan migrate --seed
+```
+
+### 7. Jalankan Server Pengembangan
+Jalankan server Laravel (PHP) dan Vite secara bersamaan:
+```bash
+# Terminal 1: Menjalankan Laravel Development Server
+php artisan serve
+
+# Terminal 2: Menjalankan Vite Development Server
+npm run dev
+```
+Akses platform melalui browser Anda di alamat: `http://127.0.5.1:8000` atau `http://localhost:8000`.
+
+---
+
+## 👥 Tim Pengembang
+
+Platform ini dikembangkan oleh tim pakar ahli bimbingan konseling dan sains teknologi:
+
+1. **Prof. Dr. M. Ramli, M.A** (FIP Universitas Negeri Malang)
+2. **Prof. Dr. Budi Astuti, M.Si** (FIP Universitas Negeri Yogyakarta)
+3. **Dr. Miftahul Fikri, M.Pd** (FIP Universitas Negeri Padang)
+4. **Dr. Diniy Hidayatur Rahman, S.Pd., M.Pd** (FIP Universitas Negeri Malang)
+5. **Nur Mega Aris Saputra, S.Pd., M.Pd** (FIP Universitas Negeri Malang)
+6. **Nail Hidaya Afandi, S.Pd., M.Pd** (FIP Universitas Negeri Malang)
+7. **Muh. Nur Alamsyah, S.Pd., M.Pd** (FIP Universitas Negeri Malang)
+
+---
+
+## 📄 Lisensi
+
+Platform ini dirilis secara terbatas untuk kepentingan akademis, riset, dan pengabdian masyarakat di bawah naungan **LPPD-KEMENDIKTI SAINTEK** dan tim universitas kolaborator. Hak Cipta Dilindungi Undang-Undang.

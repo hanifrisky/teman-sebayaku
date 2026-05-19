@@ -16,7 +16,10 @@ class WellbeingController extends Controller
         $user = auth()->user();
         $preTest = WellbeingAnswer::where('konseli_id', $user->id)->where('type', 'pre_test')->first();
         $postTest = WellbeingAnswer::where('konseli_id', $user->id)->where('type', 'post_test')->first();
-        return view('konseli.wellbeing.index', compact('preTest', 'postTest'));
+        
+        $canTakePostTest = $preTest && $preTest->status === 'completed';
+        
+        return view('konseli.wellbeing.index', compact('preTest', 'postTest', 'canTakePostTest'));
     }
 
     public function show(string $type)

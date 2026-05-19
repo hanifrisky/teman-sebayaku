@@ -81,18 +81,18 @@
         </div>
 
         {{-- Selected Counselor Notice --}}
-        @if(auth()->user()->counselor)
+        @if(auth()->user()->selectedCounselor)
             <div class="mt-4 p-4 bg-blue-50/50 border border-blue-100 rounded-2xl text-xs text-blue-700 flex items-start gap-2.5 font-medium leading-relaxed">
                 <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zm-1 9a1 1 0 00-1 1v4a1 1 0 102 0v-4a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                 <div>
-                    Lembar refleksi ini akan dipantau oleh konselor sebaya pendamping Anda: <strong class="text-slate-800">{{ auth()->user()->counselor->name }}</strong>. Anda dapat mengirim pesan WhatsApp untuk meminta bimbingan lebih lanjut.
+                    Lembar refleksi ini akan dipantau oleh konselor pendamping Anda: <strong class="text-slate-800">{{ auth()->user()->selectedCounselor->name }}</strong>. Anda dapat mengirim pesan WhatsApp untuk meminta bimbingan lebih lanjut.
                 </div>
             </div>
         @else
             <div class="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-2xl text-xs text-amber-700 flex items-start gap-2.5 font-semibold leading-relaxed">
                 <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zm-1 9a1 1 0 00-1 1v4a1 1 0 102 0v-4a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                 <div>
-                    Anda belum memilih konselor pendamping. <a href="{{ route('konseli.counselor.index') }}" class="underline font-bold text-amber-800">Pilih Konselor Sebaya</a> agar lembar kerja ini dapat ditinjau!
+                    Anda belum memilih konselor pendamping. <a href="{{ route('konseli.counselor.index') }}" class="underline font-bold text-amber-800">Pilih Konselor</a> agar lembar kerja ini dapat ditinjau!
                 </div>
             </div>
         @endif
@@ -142,28 +142,78 @@
                 <div class="card p-6 bg-white border border-slate-200/80 space-y-6">
                     <h4 class="font-extrabold text-slate-800 text-base border-b border-slate-100 pb-3">Lembar Refleksi WDEP</h4>
                     
-                    @if($material->questions->isEmpty())
+                    @php
+                        $groupedQuestions = $material->questions->sortBy('order')->groupBy('category');
+                        $categoriesOrder = ['W', 'D', 'E', 'P'];
+                        $hasQuestions = $material->questions->isNotEmpty();
+                    @endphp
+
+                    @if(!$hasQuestions)
                         <p class="text-sm text-slate-400 font-semibold italic text-center py-6">Belum ada pertanyaan refleksi WDEP untuk materi ini.</p>
                     @else
                         <div class="grid grid-cols-1 gap-6">
-                            @foreach($material->questions->sortBy('order') as $q)
-                                <div class="p-5 bg-slate-50 border border-slate-100 rounded-3xl space-y-3">
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-6 h-6 rounded bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center flex-shrink-0">
-                                            {{ $q->category }}
-                                        </span>
-                                        <span class="text-xs font-extrabold text-slate-400">
-                                            {{ $q->category === 'W' ? 'Wants (Keinginan)' : ($q->category === 'D' ? 'Doing (Tindakan)' : ($q->category === 'E' ? 'Evaluation (Evaluasi)' : 'Planning (Rencana)')) }}
-                                        </span>
+                            @foreach($categoriesOrder as $cat)
+                                @if($groupedQuestions->has($cat))
+                                    @php
+                                        $questions = $groupedQuestions->get($cat);
+                                        if ($cat === 'W') {
+                                            $bgClass = 'bg-blue-50/40 border-blue-100/70';
+                                            $badgeClass = 'bg-blue-600 text-white';
+                                            $labelClass = 'text-blue-700';
+                                            $focusClass = 'focus:border-blue-500 focus:ring-blue-500/20';
+                                            $labelText = 'Wants (Keinginan)';
+                                        } elseif ($cat === 'D') {
+                                            $bgClass = 'bg-emerald-50/40 border-emerald-100/70';
+                                            $badgeClass = 'bg-emerald-600 text-white';
+                                            $labelClass = 'text-emerald-700';
+                                            $focusClass = 'focus:border-emerald-500 focus:ring-emerald-500/20';
+                                            $labelText = 'Doing (Tindakan)';
+                                        } elseif ($cat === 'E') {
+                                            $bgClass = 'bg-purple-50/40 border-purple-100/70';
+                                            $badgeClass = 'bg-purple-600 text-white';
+                                            $labelClass = 'text-purple-700';
+                                            $focusClass = 'focus:border-purple-500 focus:ring-purple-500/20';
+                                            $labelText = 'Evaluation (Evaluasi)';
+                                        } else { // P
+                                            $bgClass = 'bg-orange-50/40 border-orange-100/70';
+                                            $badgeClass = 'bg-orange-600 text-white';
+                                            $labelClass = 'text-orange-700';
+                                            $focusClass = 'focus:border-orange-500 focus:ring-orange-500/20';
+                                            $labelText = 'Planning (Rencana)';
+                                        }
+                                    @endphp
+                                    <div class="p-6 border rounded-3xl space-y-5 {{ $bgClass }} transition-all duration-200">
+                                        {{-- Category Header --}}
+                                        <div class="flex items-center gap-2 border-b border-current/10 pb-3">
+                                            <span class="w-6 h-6 rounded font-extrabold text-xs flex items-center justify-center flex-shrink-0 {{ $badgeClass }}">
+                                                {{ $cat }}
+                                            </span>
+                                            <span class="text-sm font-extrabold {{ $labelClass }}">
+                                                {{ $labelText }}
+                                            </span>
+                                        </div>
+
+                                        {{-- Questions list --}}
+                                        <div class="space-y-5">
+                                            @foreach($questions as $qIndex => $q)
+                                                <div class="space-y-2">
+                                                    <div class="flex items-start gap-2">
+                                                        @if($questions->count() > 1)
+                                                            <span class="text-xs font-extrabold text-slate-400 mt-0.5">Pertanyaan {{ $qIndex + 1 }}:</span>
+                                                        @endif
+                                                        <p class="text-sm font-bold text-slate-700 leading-relaxed">{{ $q->text }}</p>
+                                                    </div>
+                                                    
+                                                    {{-- Reflection textarea --}}
+                                                    <textarea rows="4" 
+                                                              @input="saveAnswer({{ $q->id }}, $event.target.value)"
+                                                              class="form-input bg-white text-xs font-medium focus:outline-none focus:ring-2 {{ $focusClass }} transition-shadow duration-150" 
+                                                              placeholder="Tuliskan refleksi dirimu di sini... (Perubahan disimpan otomatis)">{{ $answers[$q->id] ?? '' }}</textarea>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                    <p class="text-sm font-bold text-slate-700 leading-relaxed">{{ $q->text }}</p>
-                                    
-                                    {{-- Reflection textarea --}}
-                                    <textarea rows="4" 
-                                              @input="saveAnswer({{ $q->id }}, $event.target.value)"
-                                              class="form-input bg-white text-xs font-medium" 
-                                              placeholder="Tuliskan refleksi dirimu di sini... (Perubahan disimpan otomatis)">{{ $answers[$q->id] ?? '' }}</textarea>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
                     @endif

@@ -79,7 +79,7 @@
                     </div>
                     <p class="text-xs text-slate-500 mt-1 leading-relaxed">
                         @if($counselorSelected)
-                            Konselor pendamping Anda saat ini: <strong class="text-slate-700">{{ $user->counselor->name }}</strong>. Anda dapat terhubung langsung via WhatsApp.
+                            Konselor pendamping Anda saat ini: <strong class="text-slate-700">{{ $user->selectedCounselor->name }}</strong>. Anda dapat terhubung langsung via WhatsApp.
                         @else
                             Pilihlah salah satu dari konselor sebaya terbaik kami yang siap mendengarkan cerita dan membantu mengoptimalkan ketahanan mental Anda.
                         @endif
@@ -110,7 +110,7 @@
                     </div>
                     <p class="text-xs text-slate-500 mt-1 leading-relaxed">
                         @if($tribeSelected)
-                            Suku pilihan Anda saat ini: <strong class="text-slate-700">{{ $user->tribe->name }}</strong>.
+                            Suku pilihan Anda saat ini: <strong class="text-slate-700">{{ $user->selectedTribe->name }}</strong>.
                         @else
                             Pilih suku asal atau suku budaya lain yang ingin Anda pelajari materi kearifan lokalnya untuk refleksi diri.
                         @endif

@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Teman Sebayaku') }} - @yield('title', 'Dashboard')</title>
     <meta name="description" content="@yield('description', 'Aplikasi konseling sebaya berbasis budaya untuk meningkatkan kesejahteraan psikologis remaja.')">
+    <link rel="icon" href="{{ asset('image/logo-mark.png') }}" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">

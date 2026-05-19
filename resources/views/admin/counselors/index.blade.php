@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen Konselor Sebaya')
-@section('page-title', 'Konselor Sebaya')
+@section('title', 'Manajemen Konselor')
+@section('page-title', 'Konselor')
 
 @section('header-actions')
 <a href="{{ route('admin.counselors.create') }}" class="btn-primary">
@@ -13,13 +13,13 @@
 @section('content')
 <div class="space-y-6 animate-fade-in">
     <div class="card p-6">
-        <p class="text-sm text-slate-500 mb-6">Kelola akun dan profil konselor sebaya. Konseli dapat memilih konselor dari daftar ini untuk mendampingi proses pengisian instrumen dan refleksi self-help.</p>
+        <p class="text-sm text-slate-500 mb-6">Kelola akun dan profil Konselor. Konseli dapat memilih konselor dari daftar ini untuk mendampingi proses pengisian instrumen dan refleksi self-help.</p>
 
         @if($counselors->isEmpty())
             <div class="text-center py-12">
                 <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 <h4 class="text-lg font-bold text-slate-700">Belum Ada Konselor</h4>
-                <p class="text-sm text-slate-500 mt-1 mb-6">Mulai dengan menambahkan akun konselor sebaya pertama Anda.</p>
+                <p class="text-sm text-slate-500 mt-1 mb-6">Mulai dengan menambahkan akun Konselor pertama Anda.</p>
                 <a href="{{ route('admin.counselors.create') }}" class="btn-primary">Tambah Konselor</a>
             </div>
         @else

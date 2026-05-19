@@ -7,7 +7,7 @@
         <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-6">
                 <a href="{{ route('konseli.dashboard') }}" class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-sm">TS</div>
+                    <img src="{{ asset('image/logo-mark.png') }}" alt="Teman Sebayaku" class="w-8 h-8 rounded-lg object-cover shadow-sm">
                     <span class="font-extrabold text-slate-800">Teman Sebayaku</span>
                 </a>
                 

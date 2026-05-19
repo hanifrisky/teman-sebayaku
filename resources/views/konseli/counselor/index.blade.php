@@ -1,11 +1,11 @@
 @extends('layouts.konseli')
 
-@section('title', 'Pilih Konselor Sebaya')
+@section('title', 'Pilih Konselor')
 
 @section('content')
 <div class="space-y-6 animate-fade-in pb-16">
     <div class="border-b border-slate-200 pb-4">
-        <h2 class="text-2xl font-bold text-slate-800">Pilih Konselor Sebaya Anda</h2>
+        <h2 class="text-2xl font-bold text-slate-800">Pilih Konselor Anda</h2>
         <p class="text-sm text-slate-500 mt-1">Pilih konselor yang akan mendampingi perjalanan bimbingan dan memberikan feedback terhadap lembar refleksi kognitif Anda.</p>
     </div>
 
@@ -13,7 +13,7 @@
         <div class="card p-12 text-center bg-white">
             <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
             <h4 class="text-lg font-bold text-slate-700">Belum Ada Konselor Aktif</h4>
-            <p class="text-sm text-slate-500 mt-1">Silakan hubungi admin untuk mendaftarkan konselor sebaya.</p>
+            <p class="text-sm text-slate-500 mt-1">Silakan hubungi admin untuk mendaftarkan Konselor.</p>
         </div>
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

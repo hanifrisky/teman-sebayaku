@@ -7,6 +7,7 @@
 
         <title>{{ config('app.name', 'Teman Sebayaku') }} - Masuk / Daftar</title>
 
+        <link rel="icon" href="{{ asset('image/logo-mark.png') }}" type="image/png">
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +26,7 @@
 
             <div class="relative z-10">
                 <a href="/" class="flex flex-col items-center gap-3 mb-6 group">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-extrabold text-2xl shadow-xl shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">TS</div>
+                    <img src="{{ asset('image/logo-mark.png') }}" alt="Teman Sebayaku" class="w-16 h-16 rounded-2xl object-cover shadow-xl shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
                     <span class="text-2xl font-extrabold bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent">Teman Sebayaku</span>
                 </a>
             </div>

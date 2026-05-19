@@ -5,7 +5,7 @@
     {{-- Sidebar --}}
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-30 w-64 bg-gradient-to-b from-blue-900 via-blue-800 to-blue-950 text-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl">
         <div class="flex items-center gap-3 px-6 py-5 border-b border-blue-700/50">
-            <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center font-bold text-lg">TS</div>
+            <img src="{{ asset('image/logo-mark.png') }}" alt="Teman Sebayaku" class="w-10 h-10 rounded-xl object-cover shadow-lg">
             <div>
                 <h1 class="font-bold text-lg leading-tight">Teman Sebayaku</h1>
                 <p class="text-xs text-blue-300 capitalize">Panel Konselor</p>

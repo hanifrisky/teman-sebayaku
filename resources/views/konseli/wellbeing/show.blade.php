@@ -136,18 +136,15 @@
                     {{-- Option Radio list --}}
                     <div class="space-y-3">
                         <template x-for="(opt, idx) in questions[currentIndex].options" :key="opt.id">
-                            <label class="flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-2xl cursor-pointer hover:bg-blue-50/20 hover:border-blue-200 transition-all duration-200"
+                            <label class="flex items-center gap-3 p-4 bg-slate-50 border border-slate-100 rounded-2xl cursor-pointer hover:bg-blue-50/20 hover:border-blue-200 transition-all duration-200"
                                    :class="answers[questions[currentIndex].id]?.option_id === opt.id ? 'border-blue-500 bg-blue-50/30' : ''">
-                                <div class="flex items-center gap-3">
-                                    <input type="radio" 
-                                           :name="'q_' + questions[currentIndex].id"
-                                           :value="opt.id"
-                                           :checked="answers[questions[currentIndex].id]?.option_id === opt.id"
-                                           @change="selectOption(questions[currentIndex].id, opt.id, opt.score)"
-                                           class="w-4 h-4 text-blue-600 bg-white border-slate-300 focus:ring-blue-500" />
-                                    <span class="text-sm font-semibold text-slate-700" x-text="opt.label"></span>
-                                </div>
-                                <span class="text-xs text-slate-400 font-bold bg-white border border-slate-200 px-2 py-0.5 rounded-lg" x-text="'+' + opt.score"></span>
+                                <input type="radio" 
+                                       :name="'q_' + questions[currentIndex].id"
+                                       :value="opt.id"
+                                       :checked="answers[questions[currentIndex].id]?.option_id === opt.id"
+                                       @change="selectOption(questions[currentIndex].id, opt.id, opt.score)"
+                                       class="w-4 h-4 text-blue-600 bg-white border-slate-300 focus:ring-blue-500" />
+                                <span class="text-sm font-semibold text-slate-700" x-text="opt.label"></span>
                             </label>
                         </template>
                     </div>

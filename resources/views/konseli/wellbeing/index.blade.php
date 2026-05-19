@@ -26,7 +26,7 @@
                 </div>
 
                 <h3 class="font-extrabold text-slate-800 text-xl mb-2">Pre-Test Wellbeing</h3>
-                <p class="text-sm text-slate-500 leading-relaxed mb-6">Dilakukan di awal program sebelum membaca modul bimbingan ataupun berdiskusi dengan konselor sebaya Anda.</p>
+                <p class="text-sm text-slate-500 leading-relaxed mb-6">Dilakukan di awal program sebelum membaca modul bimbingan ataupun berdiskusi dengan Konselor Anda.</p>
 
                 @if($preTest)
                     <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl mb-6">

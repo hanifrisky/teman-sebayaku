@@ -6,7 +6,7 @@
 @section('content')
 <div class="space-y-6 animate-fade-in">
     <div class="card p-6 bg-white border border-slate-200/80">
-        <h3 class="font-extrabold text-slate-800 text-lg mb-2">Selamat Datang di Panel Konselor Sebaya</h3>
+        <h3 class="font-extrabold text-slate-800 text-lg mb-2">Selamat Datang di Panel Konselor</h3>
         <p class="text-sm text-slate-500">Berikut adalah daftar peserta (konseli) bimbingan yang telah memilih Anda sebagai pendamping mereka. Anda dapat meninjau hasil Wellbeing serta lembar refleksi kognitif WDEP mereka secara mendalam.</p>
     </div>
 

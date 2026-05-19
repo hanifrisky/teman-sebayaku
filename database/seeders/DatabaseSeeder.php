@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         $counselor->counselorProfile()->firstOrCreate(
             ['user_id' => $counselor->id],
             [
-                'description' => 'Saya adalah konselor sebaya yang berfokus pada pendampingan psikologis remaja, pengembangan minat bakat, dan manajemen stres akademis.',
+                'description' => 'Saya adalah Konselor yang berfokus pada pendampingan psikologis remaja, pengembangan minat bakat, dan manajemen stres akademis.',
                 'motto' => 'Hari ini adalah kesempatan untuk tumbuh lebih baik.',
                 'photo_path' => null,
                 'whatsapp_number' => '081234567890',
@@ -125,7 +125,7 @@ class DatabaseSeeder extends Seeder
             [
                 'min_score' => 8,
                 'max_score' => 15,
-                'description' => 'Kesejahteraan Psikologis Rendah. Anda mungkin sedang menghadapi tekanan berat atau merasa kurang mendapat dukungan. Sangat disarankan untuk melakukan konseling dengan konselor sebaya Anda.'
+                'description' => 'Kesejahteraan Psikologis Rendah. Anda mungkin sedang menghadapi tekanan berat atau merasa kurang mendapat dukungan. Sangat disarankan untuk melakukan konseling dengan Konselor Anda.'
             ],
             [
                 'min_score' => 16,

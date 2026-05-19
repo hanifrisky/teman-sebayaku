@@ -72,7 +72,7 @@
                 </div>
                 <div class="flex-1 min-w-0">
                     <div class="flex items-center justify-between gap-2">
-                        <h5 class="font-bold text-slate-800 text-sm">Langkah 2: Pilih Konselor Sebaya</h5>
+                        <h5 class="font-bold text-slate-800 text-sm">Langkah 2: Pilih Konselor</h5>
                         <span class="text-xs font-bold {{ $counselorSelected ? 'text-emerald-600 bg-emerald-100/60' : 'text-amber-600 bg-amber-50' }} px-2.5 py-0.5 rounded-lg border border-current/10">
                             {{ $counselorSelected ? 'Selesai' : 'Belum Selesai' }}
                         </span>
@@ -81,7 +81,7 @@
                         @if($counselorSelected)
                             Konselor pendamping Anda saat ini: <strong class="text-slate-700">{{ $user->selectedCounselor->name }}</strong>. Anda dapat terhubung langsung via WhatsApp.
                         @else
-                            Pilihlah salah satu dari konselor sebaya terbaik kami yang siap mendengarkan cerita dan membantu mengoptimalkan ketahanan mental Anda.
+                            Pilihlah salah satu dari Konselor terbaik kami yang siap mendengarkan cerita dan membantu mengoptimalkan ketahanan mental Anda.
                         @endif
                     </p>
                     <div class="mt-3.5">

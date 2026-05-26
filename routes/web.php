@@ -41,6 +41,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('option-groups', \App\Http\Controllers\Admin\OptionGroupController::class);
 
     // Instrumen - Questions
+    Route::post('questions/reorder', [\App\Http\Controllers\Admin\QuestionController::class, 'reorder'])->name('questions.reorder');
     Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
 
     // Interpretations

@@ -66,4 +66,26 @@ class QuestionController extends Controller
         return redirect()->route('admin.questions.index')
             ->with('success', 'Soal berhasil dihapus.');
     }
+
+    public function reorder(Request $request)
+    {
+        $request->validate([
+            'question_order' => 'required|string',
+        ]);
+
+        $ids = json_decode($request->input('question_order'), true);
+
+        if (!is_array($ids)) {
+            return redirect()->route('admin.questions.index')
+                ->with('error', 'Format urutan soal tidak valid.');
+        }
+
+        // Update order in database starting from 1 sequentially
+        foreach ($ids as $index => $id) {
+            Question::where('id', $id)->update(['order' => $index + 1]);
+        }
+
+        return redirect()->route('admin.questions.index')
+            ->with('success', 'Urutan soal berhasil disimpan.');
+    }
 }

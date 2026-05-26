@@ -44,21 +44,6 @@
                 @enderror
             </div>
 
-            <!-- Order -->
-            <div>
-                <label for="order" class="form-label">Nomor Urut Tampil</label>
-                <input type="number" 
-                       id="order" 
-                       name="order" 
-                       value="{{ old('order', $question->order) }}" 
-                       required
-                       class="form-input" 
-                       placeholder="Nomor urut" />
-                @error('order')
-                    <p class="form-error">{{ $message }}</p>
-                @enderror
-            </div>
-
             <!-- Submit Button -->
             <div class="pt-4 border-t border-slate-100 flex items-center gap-3 justify-end">
                 <a href="{{ route('admin.questions.index') }}" class="btn-secondary">Batal</a>

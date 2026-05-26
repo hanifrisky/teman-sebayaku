@@ -145,7 +145,7 @@
     <div class="score-box">
         <h2>Total Skor Hasil Tes</h2>
         <div class="score-value">{{ $answer->total_score }}</div>
-        <p>Total Skor maksimal yang mungkin diraih adalah {{ $answer->details->count() * 4 }} Poin</p>
+        <!-- <p>Total Skor maksimal yang mungkin diraih adalah {{ $maxPossibleScore }} Poin</p> -->
     </div>
 
     <div class="interpretation-section">
@@ -162,7 +162,7 @@
                 <th style="width: 5%; text-align: center;">No</th>
                 <th style="width: 55%;">Pertanyaan / Pernyataan</th>
                 <th style="width: 30%;">Jawaban Terpilih</th>
-                <th style="width: 10%; text-align: center;">Skor</th>
+                <!-- <th style="width: 10%; text-align: center;">Skor</th> -->
             </tr>
         </thead>
         <tbody>
@@ -171,7 +171,7 @@
                     <td style="text-align: center;">{{ $index + 1 }}</td>
                     <td>{{ $detail->question->text }}</td>
                     <td>{{ $detail->selectedOption->label }}</td>
-                    <td style="text-align: center; font-weight: bold; color: #1d4ed8;">{{ $detail->score }}</td>
+                    <!-- <td style="text-align: center; font-weight: bold; color: #1d4ed8;">{{ $detail->score }}</td> -->
                 </tr>
             @endforeach
         </tbody>

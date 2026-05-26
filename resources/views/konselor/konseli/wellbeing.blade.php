@@ -32,6 +32,16 @@
                             <span class="text-xs font-extrabold text-blue-600 uppercase tracking-widest block mb-1">Interpretasi Hasil</span>
                             <p class="text-xs font-bold text-slate-600 leading-relaxed">{{ $preTest->interpretation->description ?? 'Tidak ditemukan deskripsi.' }}</p>
                         </div>
+                        <div class="pt-2 border-t border-slate-100 flex justify-end">
+                            <form action="{{ route('konselor.konseli.wellbeing.reset', [$user, 'pre_test']) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mereset hasil Pre-Test ini? Konseli harus mengisi ulang dari awal.')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-extrabold text-red-600 bg-red-50 hover:bg-red-100 hover:text-red-700 rounded-xl border border-red-100 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20 active:scale-95 duration-150">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                    Reset Pre-Test
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 @else
                     <div class="text-center py-12 text-slate-400 font-medium text-sm">
@@ -59,6 +69,16 @@
                         <div class="p-4 bg-indigo-50/20 border border-indigo-100/50 rounded-2xl">
                             <span class="text-xs font-extrabold text-indigo-600 uppercase tracking-widest block mb-1">Interpretasi Hasil</span>
                             <p class="text-xs font-bold text-slate-600 leading-relaxed">{{ $postTest->interpretation->description ?? 'Tidak ditemukan deskripsi.' }}</p>
+                        </div>
+                        <div class="pt-2 border-t border-slate-100 flex justify-end">
+                            <form action="{{ route('konselor.konseli.wellbeing.reset', [$user, 'post_test']) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mereset hasil Post-Test ini? Konseli harus mengisi ulang dari awal.')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-extrabold text-red-600 bg-red-50 hover:bg-red-100 hover:text-red-700 rounded-xl border border-red-100 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20 active:scale-95 duration-150">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1v3M4 7h16"/></svg>
+                                    Reset Post-Test
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @else

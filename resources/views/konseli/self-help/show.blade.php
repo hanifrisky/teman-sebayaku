@@ -12,40 +12,69 @@
     materialsCount: {{ $materials->count() }},
     answers: {{ json_encode($answers) }},
     savingStatus: 'idle', // 'idle', 'saving', 'saved', 'error'
-    saveTimeout: null,
+    statuses: {}, // Local status per question: { [questionId]: 'saving' | 'saved' | 'error' | 'idle' }
+    saveTimeouts: {}, // Local timeouts per question to support independent debouncing
     
     saveAnswer(questionId, text) {
         this.answers[questionId] = text;
         this.savingStatus = 'saving';
         
-        // Debounce / delay save by 800ms
-        clearTimeout(this.saveTimeout);
-        this.saveTimeout = setTimeout(async () => {
-            try {
-                let response = await fetch('{{ route('konseli.self-help.save') }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        material_question_id: questionId,
-                        answer_text: text
-                    })
-                });
-                let result = await response.json();
-                if (result.success) {
-                    this.savingStatus = 'saved';
-                    setTimeout(() => {
-                        if (this.savingStatus === 'saved') this.savingStatus = 'idle';
-                    }, 1500);
-                } else {
-                    this.savingStatus = 'error';
-                }
-            } catch (e) {
+        if (!this.statuses) this.statuses = {};
+        this.statuses = { ...this.statuses, [questionId]: 'saving' };
+        
+        if (!this.saveTimeouts) this.saveTimeouts = {};
+        clearTimeout(this.saveTimeouts[questionId]);
+        
+        // Debounce / delay save by 5000ms (5 seconds)
+        this.saveTimeouts[questionId] = setTimeout(() => {
+            this.saveAnswerImmediately(questionId, text);
+        }, 5000);
+    },
+    
+    async saveAnswerImmediately(questionId, text) {
+        if (this.saveTimeouts && this.saveTimeouts[questionId]) {
+            clearTimeout(this.saveTimeouts[questionId]);
+            delete this.saveTimeouts[questionId];
+        }
+        
+        if (!this.statuses) this.statuses = {};
+        this.statuses = { ...this.statuses, [questionId]: 'saving' };
+        this.savingStatus = 'saving';
+        
+        try {
+            let response = await fetch('{{ route('konseli.self-help.save') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    material_question_id: questionId,
+                    answer_text: text
+                })
+            });
+            let result = await response.json();
+            if (result.success) {
+                this.statuses = { ...this.statuses, [questionId]: 'saved' };
+                this.savingStatus = 'saved';
+                setTimeout(() => {
+                    if (this.savingStatus === 'saved') this.savingStatus = 'idle';
+                }, 1500);
+            } else {
+                this.statuses = { ...this.statuses, [questionId]: 'error' };
                 this.savingStatus = 'error';
             }
-        }, 800);
+        } catch (e) {
+            this.statuses = { ...this.statuses, [questionId]: 'error' };
+            this.savingStatus = 'error';
+        }
+    },
+    
+    handleBlur(questionId, text) {
+        // If the question has pending unsaved changes
+        if (this.statuses && this.statuses[questionId] === 'saving') {
+            this.saveAnswerImmediately(questionId, text);
+        }
     }
 }">
     <!-- Header with Dynamic Status -->
@@ -207,8 +236,38 @@
                                                     {{-- Reflection textarea --}}
                                                     <textarea rows="4" 
                                                               @input="saveAnswer({{ $q->id }}, $event.target.value)"
+                                                              @blur="handleBlur({{ $q->id }}, $event.target.value)"
                                                               class="form-input bg-white text-xs font-medium focus:outline-none focus:ring-2 {{ $focusClass }} transition-shadow duration-150" 
-                                                              placeholder="Tuliskan refleksi dirimu di sini... (Perubahan disimpan otomatis)">{{ $answers[$q->id] ?? '' }}</textarea>
+                                                              placeholder="Tuliskan refleksi dirimu di sini... (Tersimpan otomatis setelah 5 detik tidak mengetik atau ketika Anda berpindah kolom)">{{ $answers[$q->id] ?? '' }}</textarea>
+                                                    
+                                                    {{-- Local saving status --}}
+                                                    <div class="flex items-center justify-between min-h-[22px] mt-2 px-2 py-1 rounded-xl bg-slate-50/50 border border-slate-100/70 text-[11px] font-medium text-slate-400 select-none transition-all duration-200">
+                                                        <div class="flex items-center gap-1.5">
+                                                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+                                                            <span>Auto-save aktif</span>
+                                                        </div>
+                                                        <div class="font-semibold">
+                                                            <span x-show="statuses[{{ $q->id }}] === 'saving'" class="inline-flex items-center gap-1 text-blue-600 animate-pulse" style="display: none;">
+                                                                <svg class="animate-spin h-3.5 w-3.5 text-blue-500" fill="none" viewBox="0 0 24 24">
+                                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3.5"></circle>
+                                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                                </svg>
+                                                                Sedang menyimpan...
+                                                            </span>
+                                                            <span x-show="statuses[{{ $q->id }}] === 'saved'" class="inline-flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-100" style="display: none;">
+                                                                <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                                                                </svg>
+                                                                Perubahan disimpan
+                                                            </span>
+                                                            <span x-show="statuses[{{ $q->id }}] === 'error'" class="inline-flex items-center gap-1 text-red-600 bg-red-50 px-2 py-0.5 rounded-lg border border-red-100" style="display: none;">
+                                                                <svg class="w-3.5 h-3.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                                                                </svg>
+                                                                Gagal menyimpan
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             @endforeach
                                         </div>

@@ -26,44 +26,8 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 2. Create Counselor
-        $counselor = User::firstOrCreate(
-            ['email' => 'budi@temansebayaku.com'],
-            [
-                'name' => 'Budi Raharjo, S.Psi',
-                'password' => bcrypt('password'),
-                'role' => 'konselor',
-            ]
-        );
-
-        $counselor->counselorProfile()->firstOrCreate(
-            ['user_id' => $counselor->id],
-            [
-                'description' => 'Saya adalah Konselor yang berfokus pada pendampingan psikologis remaja, pengembangan minat bakat, dan manajemen stres akademis.',
-                'motto' => 'Hari ini adalah kesempatan untuk tumbuh lebih baik.',
-                'photo_path' => null,
-                'whatsapp_number' => '081234567890',
-            ]
-        );
-
-        $counselor2 = User::firstOrCreate(
-            ['email' => 'siti@temansebayaku.com'],
-            [
-                'name' => 'Siti Aminah',
-                'password' => bcrypt('password'),
-                'role' => 'konselor',
-            ]
-        );
-
-        $counselor2->counselorProfile()->firstOrCreate(
-            ['user_id' => $counselor2->id],
-            [
-                'description' => 'Mendengarkan dengan empati adalah kunci utama konseling. Mari berbagi cerita dan mencari solusi terbaik bersama-sama.',
-                'motto' => 'Tenang, semua badai pasti berlalu.',
-                'photo_path' => null,
-                'whatsapp_number' => '082345678901',
-            ]
-        );
+        // 2. Create Counselors via CounselorSeeder
+        $this->call(CounselorSeeder::class);
 
         // 3. Create Konseli
         User::firstOrCreate(

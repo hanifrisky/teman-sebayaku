@@ -5,8 +5,12 @@
 @section('content')
 @php
     $score = $answer->total_score;
-    $maxPossibleScore = \App\Models\Question::count() * 4; // Each question max score is 4
-    $percentage = round(($score / $maxPossibleScore) * 100);
+
+    $maxPossibleScore = \App\Models\Interpretation::max('max_score') ?? 0;
+
+    $percentage = $maxPossibleScore > 0
+        ? round(($score / $maxPossibleScore) * 100)
+        : 0;
 @endphp
 
 <div class="max-w-2xl mx-auto space-y-8 animate-fade-in pb-16">

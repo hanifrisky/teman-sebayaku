@@ -155,8 +155,12 @@ class WellbeingController extends Controller
             ->with(['details.question', 'details.selectedOption', 'interpretation'])
             ->firstOrFail();
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('konseli.wellbeing.pdf', compact('answer', 'type'));
         $filename = "wellbeing_{$type}_{$user->id}.pdf";
+        
+        $maxPossibleScore = \App\Models\Interpretation::max('max_score') ?? 0;
+        
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('konseli.wellbeing.pdf', compact('answer', 'type', 'maxPossibleScore'));
+
 
         return $pdf->download($filename);
     }

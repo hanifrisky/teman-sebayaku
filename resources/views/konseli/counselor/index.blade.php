@@ -54,7 +54,7 @@
 
                         {{-- Description --}}
                         @if($profile && $profile->description)
-                            <p class="text-xs text-slate-500 mt-4 leading-relaxed line-clamp-4 font-medium">
+                            <p class="text-xs text-slate-500 mt-4 leading-relaxed font-medium whitespace-pre-line">
                                 {{ $profile->description }}
                             </p>
                         @endif

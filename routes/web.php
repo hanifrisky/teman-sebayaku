@@ -59,6 +59,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('materials.questions', \App\Http\Controllers\Admin\MaterialQuestionController::class)
         ->names('material-questions');
 
+    // Lessons
+    Route::resource('lessons', \App\Http\Controllers\Admin\LessonController::class);
+
     // Users Management
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 });
@@ -94,6 +97,10 @@ Route::middleware(['auth', 'role:konseli'])->prefix('konseli')->name('konseli.')
     Route::get('/self-help/{tribe}', [\App\Http\Controllers\Konseli\SelfHelpController::class, 'show'])->name('self-help.show');
     Route::post('/self-help/save', [\App\Http\Controllers\Konseli\SelfHelpController::class, 'save'])->name('self-help.save');
 
+    // Lessons (Pembelajaran)
+    Route::get('/lessons', [\App\Http\Controllers\Konseli\LessonController::class, 'index'])->name('lessons.index');
+    Route::get('/lessons/{lesson}', [\App\Http\Controllers\Konseli\LessonController::class, 'show'])->name('lessons.show');
+
     // Profile
     Route::get('/profile', [\App\Http\Controllers\Konseli\ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [\App\Http\Controllers\Konseli\ProfileController::class, 'update'])->name('profile.update');
@@ -112,6 +119,9 @@ Route::middleware(['auth', 'role:konselor'])->prefix('konselor')->name('konselor
 
     // View Konseli Self-Help Answers
     Route::get('/konseli/{user}/self-help', [\App\Http\Controllers\Konselor\KonseliSelfHelpController::class, 'show'])->name('konseli.self-help');
+
+    // Lessons
+    Route::resource('lessons', \App\Http\Controllers\Konselor\LessonController::class);
 
     // Profile
     Route::get('/profile', [\App\Http\Controllers\Konselor\ProfileController::class, 'edit'])->name('profile.edit');

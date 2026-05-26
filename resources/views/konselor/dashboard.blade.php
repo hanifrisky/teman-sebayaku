@@ -14,7 +14,42 @@
     <div class="table-container bg-white">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <h4 class="font-bold text-slate-800 text-base">Konseli Pendampingan Anda</h4>
-            <span class="bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-lg font-bold border border-blue-100">{{ $konseliList->count() }} Orang Terdaftar</span>
+            <span class="bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-lg font-bold border border-blue-100">
+                {{ $konseliList->total() }} Orang Terdaftar
+            </span>
+        </div>
+
+        {{-- Filter & Search Bar --}}
+        <div class="px-6 py-4 bg-slate-50/50 border-b border-slate-100">
+            <form action="{{ route('konselor.dashboard') }}" method="GET" class="flex flex-col sm:flex-row items-center justify-end gap-3 w-full">
+                @if(request('per_page'))
+                    <input type="hidden" name="per_page" value="{{ request('per_page') }}">
+                @endif
+                {{-- Search Field --}}
+                <div class="relative w-full sm:w-64">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </span>
+                    <input type="text" 
+                           name="search" 
+                           value="{{ request('search') }}"
+                           placeholder="Cari nama atau email..." 
+                           class="w-full form-input pl-9 bg-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all border border-slate-200" />
+                </div>
+
+                {{-- Actions --}}
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <button type="submit" class="btn-primary btn-sm bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-1.5 flex items-center gap-1.5">
+                        Cari
+                    </button>
+
+                    @if(request()->filled('search') || request()->filled('per_page'))
+                        <a href="{{ route('konselor.dashboard') }}" class="btn-secondary btn-sm px-3 py-1.5 flex items-center gap-1 text-slate-500 border border-slate-200 hover:bg-slate-100">
+                            Reset
+                        </a>
+                    @endif
+                </div>
+            </form>
         </div>
 
         @if($konseliList->isEmpty())
@@ -91,6 +126,36 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+
+            {{-- Pagination Links --}}
+            <div class="p-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4 text-xs font-bold text-slate-400">
+                    <div>
+                        Menampilkan {{ $konseliList->firstItem() ?? 0 }} - {{ $konseliList->lastItem() ?? 0 }} dari {{ $konseliList->total() }} konseli
+                    </div>
+                    <span class="hidden sm:inline text-slate-200">|</span>
+                    
+                    {{-- Tampilkan Select --}}
+                    <form action="{{ route('konselor.dashboard') }}" method="GET" class="flex items-center gap-2">
+                        @if(request('search'))
+                            <input type="hidden" name="search" value="{{ request('search') }}">
+                        @endif
+                        <label for="per_page" class="text-xs font-bold text-slate-400 whitespace-nowrap">Tampilkan:</label>
+                        <select name="per_page" 
+                                id="per_page" 
+                                onchange="this.form.submit()" 
+                                class="form-input text-xs font-bold bg-white border border-slate-200 focus:ring-2 focus:ring-blue-500/20 rounded-xl px-2.5 py-1 min-w-[80px] text-slate-500 cursor-pointer">
+                            <option value="10" {{ request('per_page', 10) == '10' ? 'selected' : '' }}>10</option>
+                            <option value="20" {{ request('per_page') == '20' ? 'selected' : '' }}>20</option>
+                            <option value="50" {{ request('per_page') == '50' ? 'selected' : '' }}>50</option>
+                            <option value="all" {{ request('per_page') == 'all' ? 'selected' : '' }}>Semua</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="w-full sm:w-auto overflow-x-auto flex justify-end">
+                    {{ $konseliList->links() }}
+                </div>
             </div>
         @endif
     </div>

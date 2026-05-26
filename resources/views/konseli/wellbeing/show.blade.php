@@ -32,6 +32,11 @@
         @endforeach
     },
     savingStatus: 'idle', // 'idle', 'saving', 'saved', 'error'
+    questionStatuses: {
+        @foreach($answer->details as $d)
+            '{{ $d->question_id }}': 'saved',
+        @endforeach
+    },
     
     get progressPercentage() {
         let answeredCount = Object.keys(this.answers).length;
@@ -49,6 +54,9 @@
     
     async saveAnswer(questionId, optionId, score) {
         this.savingStatus = 'saving';
+        if (!this.questionStatuses) this.questionStatuses = {};
+        this.questionStatuses = { ...this.questionStatuses, [questionId]: 'saving' };
+        
         try {
             let response = await fetch('{{ route('konseli.wellbeing.save', $type) }}', {
                 method: 'POST',
@@ -65,14 +73,27 @@
             let result = await response.json();
             if (result.success) {
                 this.savingStatus = 'saved';
+                this.questionStatuses = { ...this.questionStatuses, [questionId]: 'saved' };
                 setTimeout(() => {
                     if (this.savingStatus === 'saved') this.savingStatus = 'idle';
                 }, 1500);
             } else {
                 this.savingStatus = 'error';
+                this.questionStatuses = { ...this.questionStatuses, [questionId]: 'error' };
             }
         } catch (e) {
             this.savingStatus = 'error';
+            this.questionStatuses = { ...this.questionStatuses, [questionId]: 'error' };
+        }
+    },
+    
+    handleGridClick(q, idx) {
+        this.currentIndex = idx;
+        if (this.questionStatuses[q.id] === 'error') {
+            let ans = this.answers[q.id];
+            if (ans) {
+                this.saveAnswer(q.id, ans.option_id, ans.score);
+            }
         }
     }
 }">
@@ -185,14 +206,26 @@
             <div class="grid grid-cols-5 gap-2.5">
                 <template x-for="(q, idx) in questions" :key="q.id">
                     <button type="button" 
-                            @click="currentIndex = idx"
-                            class="w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center border transition-all duration-200 active:scale-95"
-                            :class="currentIndex === idx 
-                                ? 'bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-500/25 ring-2 ring-blue-600 ring-offset-2' 
-                                : (answers[q.id] 
-                                    ? 'bg-emerald-50 border-emerald-200 text-emerald-600 font-extrabold' 
-                                    : 'bg-slate-50 border-slate-200 text-slate-400')">
-                        <span x-text="idx + 1"></span>
+                            @click="handleGridClick(q, idx)"
+                            class="relative w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center border transition-all duration-200 active:scale-95 focus:outline-none"
+                            :class="{
+                                'ring-2 ring-blue-600 ring-offset-2 border-blue-500 z-10': currentIndex === idx,
+                                'bg-blue-50 border-blue-300 text-blue-700 font-extrabold': questionStatuses[q.id] === 'saving',
+                                'bg-red-50 border-red-300 text-red-600 font-extrabold': questionStatuses[q.id] === 'error',
+                                'bg-emerald-50 border-emerald-200 text-emerald-600 font-extrabold': questionStatuses[q.id] === 'saved',
+                                'bg-slate-50 border-slate-200 text-slate-400': !questionStatuses[q.id] || questionStatuses[q.id] === 'idle'
+                            }">
+                        
+                        <!-- Spinning Loader Overlay for 'saving' state -->
+                        <template x-if="questionStatuses[q.id] === 'saving'">
+                            <svg class="animate-spin absolute inset-0.5 w-[calc(100%-4px)] h-[calc(100%-4px)] text-blue-500" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </template>
+                        
+                        <!-- Question Number -->
+                        <span x-text="idx + 1" :class="questionStatuses[q.id] === 'saving' ? 'relative z-10' : ''"></span>
                     </button>
                 </template>
             </div>
@@ -200,14 +233,18 @@
             <div class="mt-6 pt-4 border-t border-slate-100 space-y-2">
                 <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
                     <span class="w-3.5 h-3.5 rounded bg-emerald-50 border border-emerald-200 block"></span>
-                    <span>Sudah dijawab</span>
+                    <span>Sudah dijawab (Berhasil)</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
+                    <span class="w-3.5 h-3.5 rounded bg-red-50 border border-red-300 block"></span>
+                    <span>Gagal menyimpan (Klik untuk kirim ulang)</span>
                 </div>
                 <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
                     <span class="w-3.5 h-3.5 rounded bg-slate-50 border border-slate-200 block"></span>
                     <span>Belum dijawab</span>
                 </div>
                 <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
-                    <span class="w-3.5 h-3.5 rounded bg-blue-600 block"></span>
+                    <span class="w-3.5 h-3.5 rounded-md ring-2 ring-blue-600 ring-offset-1 border border-slate-300 bg-white block"></span>
                     <span>Pertanyaan aktif</span>
                 </div>
             </div>

@@ -10,7 +10,7 @@ class KonseliSelfHelpController extends Controller
 {
     public function show(User $user)
     {
-        abort_unless($user->selected_counselor_id === auth()->id(), 403);
+        abort_unless($user->selected_counselor_id == auth()->id(), 403);
 
         $tribe = $user->selectedTribe;
 

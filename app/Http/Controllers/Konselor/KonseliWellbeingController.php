@@ -11,7 +11,7 @@ class KonseliWellbeingController extends Controller
     public function show(User $user)
     {
         // Verify this konseli belongs to the logged-in konselor
-        abort_unless($user->selected_counselor_id === auth()->id(), 403);
+        abort_unless($user->selected_counselor_id == auth()->id(), 403);
 
         $preTest = WellbeingAnswer::where('konseli_id', $user->id)
             ->where('type', 'pre_test')
@@ -31,7 +31,7 @@ class KonseliWellbeingController extends Controller
     public function reset(User $user, string $type)
     {
         // Verify this konseli belongs to the logged-in konselor
-        abort_unless($user->selected_counselor_id === auth()->id(), 403);
+        abort_unless($user->selected_counselor_id == auth()->id(), 403);
 
         // Validate type is pre_test or post_test
         abort_unless(in_array($type, ['pre_test', 'post_test']), 400);
